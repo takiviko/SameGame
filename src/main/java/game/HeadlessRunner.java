@@ -12,8 +12,6 @@ public class HeadlessRunner {
         int xSelection;
         int ySelection;
 
-        boolean gameIsRunning = true;
-
         Score score = new Score();
 
         //--------------------------------------------------------------------//
@@ -35,11 +33,16 @@ public class HeadlessRunner {
         System.out.println("Brilliant!\nHere's your grid: ");
         Game.printGridState(grid);
 
-        while(gameIsRunning) {
+        while(true) {
+
+            if(Game.gameHasEnded(grid)) {
+                System.out.println("There are no more possible moves.");
+                System.out.println("Your Score: " + score.getScore());
+                return;
+            }
 
            xSelection = checkXValue(grid, scanner);
            ySelection = checkYValue(grid, scanner);
-
 
             Game.traverse(grid, gridSelection, ySelection, xSelection, grid[ySelection][xSelection].getColor());
             int numberOfSelectedCells = Game.getNumberOfTraversedCells(gridSelection);
@@ -51,7 +54,7 @@ public class HeadlessRunner {
                 System.out.println("Current score: " + score.getScore());
                 System.out.println("Here's your grid after the turn: ");
             } else {
-                Game.deleteCells(grid, gridSelection);
+                Game.emptyGrid(gridSelection);
                 System.out.println("Invalid selection!");
             }
             Game.printGridState(grid);

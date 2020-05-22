@@ -4,6 +4,30 @@ import java.util.Random;
 
 public class Game {
 
+    public static boolean gameHasEnded(Cell[][] array) {
+        Cell[][] tempArray = new Cell[array.length][array[0].length];
+        gridInit(tempArray, array.length, array[0].length);
+
+        boolean gameHasEnded = true;
+
+        if(numberOfColoredCells(array) == 0) {
+            return true;
+        }
+
+        for(int i = 0; i < array.length; i++) {
+            for(int j = 0; j < array[0].length;j++) {
+                if(array[i][j].getColor() != 0) {
+                    traverse(array, tempArray, i, j, array[i][j].getColor());
+                    if(numberOfColoredCells(tempArray) > 1) {
+                        gameHasEnded = false;
+                    }
+                    emptyGrid(tempArray);
+                }
+            }
+        }
+        return gameHasEnded;
+    }
+
     public static void traverse(Cell[][] array, Cell[][] selection, int selectedHeight, int selectedWidth, final int color) {
 
         if(array[selectedHeight][selectedWidth].getColor() == 0) {
@@ -147,5 +171,17 @@ public class Game {
             System.out.println("");
         }
         System.out.println("");
+    }
+
+    private static int numberOfColoredCells(Cell[][] array) {
+        int number = 0;
+        for(int i = 0; i < array.length; i++) {
+            for(int j = 0; j < array[0].length; j++) {
+                if(array[i][j].getColor() != 0) {
+                    number++;
+                }
+            }
+        }
+        return number;
     }
 }
