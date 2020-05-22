@@ -42,9 +42,9 @@ public class HeadlessRunner {
 
 
             Game.traverse(grid, gridSelection, ySelection, xSelection, grid[ySelection][xSelection].getColor());
-            int supposedScore = Game.getNumberOfTraversedCells(gridSelection);
-            if(supposedScore > 1) {
-                score.addToScore(Score.calculateScore(supposedScore));
+            int numberOfSelectedCells = Game.getNumberOfTraversedCells(gridSelection);
+            if(numberOfSelectedCells > 1) {
+                score.addToScore(Score.calculateScore(numberOfSelectedCells));
                 Game.deleteCells(grid, gridSelection);
                 Game.moveDown(grid);
                 Game.deleteEmptyColumns(grid);
