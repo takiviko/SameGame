@@ -15,6 +15,10 @@ public class Score {
         score = score + n;
     }
 
+    public static int calculateScore(int n) {
+        return (int)Math.pow((n-2), 2);
+    }
+
     public void resetScore() {
         score = 0;
     }
