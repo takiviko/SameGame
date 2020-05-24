@@ -8,14 +8,24 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 
+/**
+ * A class containing methods used to write to and read from
+ * the scores.json file in the project directory.
+ */
 public class JsonHandler {
 
-    public void write(Result result) {
+    /**
+     * Writes the game scores to the scores.json file
+     * in the project directory.
+     *
+     * @param result the result object to write to the file
+     */
+    public void write(final Result result) {
 
         Gson gson = new GsonBuilder().setPrettyPrinting().create();
         ArrayList<Result> results = new ArrayList<>();
 
-        if(read() != null) {
+        if (read() != null) {
             results = read();
         }
 
@@ -33,6 +43,12 @@ public class JsonHandler {
         }
     }
 
+    /**
+     * Reads the scores.json file found in the project directory
+     * and loads the contents into an array of Result objects.
+     *
+     * @return an array containing the objects from the scores.json file
+     */
     public ArrayList read() {
 
         ArrayList<Result> results = new ArrayList<>();
@@ -41,9 +57,12 @@ public class JsonHandler {
             FileReader reader = new FileReader("scores.json");
 
             try {
-                results = new Gson().fromJson(new FileReader("scores.json"), ArrayList.class);
-            } catch(Exception e) {
-                Logger.error("There was a problem with reading the file scores.json. Deleting contents...");
+                results = new Gson().fromJson(
+                        new FileReader("scores.json"),
+                        ArrayList.class);
+            } catch (Exception e) {
+                Logger.error("There was a problem with reading the "
+                        + "file scores.json. Deleting contents...");
                 delete();
             }
 
@@ -53,13 +72,16 @@ public class JsonHandler {
         return results;
     }
 
+    /**
+     * Empties the scores.json file.
+     */
     public void delete() {
         try {
             FileWriter writer = new FileWriter("scores.json");
             writer.write("");
             writer.flush();
             writer.close();
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }

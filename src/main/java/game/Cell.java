@@ -2,13 +2,25 @@ package game;
 
 import lombok.Data;
 
+/**
+ * Class for representing a cell from the game field.
+ */
+
 @Data
 public class Cell {
 
-    Cell(int color) {
-        this.color = color;
+    Cell(final int passedColor) {
+        this.color = passedColor;
     }
-    //0 - Empty, 1 - Red, 2 - Green, 3 - Blue, 4 - Yellow
+
+    /**
+     * The colour of the cell.
+     *     0: empty
+     *     1: blue
+     *     2: red
+     *     3: green
+     *     4: yellow
+     */
     private int color = 0;
 
 }

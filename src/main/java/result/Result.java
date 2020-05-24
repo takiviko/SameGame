@@ -5,6 +5,9 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+/**
+ * Class for representing the results of a given round of the game.
+ */
 @Data
 @Builder
 @NoArgsConstructor

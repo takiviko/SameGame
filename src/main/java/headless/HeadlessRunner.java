@@ -7,7 +7,20 @@ import result.Result;
 
 import java.util.Scanner;
 
-public class HeadlessRunner {
+/**
+ * A class containing methods for running the game in headless mode.
+ */
+public final class HeadlessRunner {
+
+    private HeadlessRunner() {
+        throw new IllegalStateException("Utility class");
+    }
+
+    /**
+     * Runs the game in headless mode.
+     *
+     * @return a Result object representing the game score
+     */
     public static Result run() {
 
         String playerName;
@@ -24,7 +37,7 @@ public class HeadlessRunner {
 
         Score score = new Score();
 
-        //--------------------------------------------------------------------//
+        //---------------------------------------------------------//
 
         System.out.println("Welcome!\nEnter the width of your grid: ");
         width = scanner.nextInt();
@@ -35,7 +48,8 @@ public class HeadlessRunner {
         Cell[][] grid = new Cell[width][height];
         Cell[][] gridSelection = new Cell[width][height];
 
-        System.out.println("Now enter the number of colours you want in your grid: ");
+        System.out.println(
+            "Now enter the number of colours you want in your grid: ");
         numberOfColors = scanner.nextInt();
         Game.gridInit(grid);
         Game.gridInit(gridSelection);
@@ -43,9 +57,9 @@ public class HeadlessRunner {
         System.out.println("Brilliant!\nHere's your grid: ");
         Game.printGridState(grid);
 
-        while(true) {
+        while (true) {
 
-            if(Game.gameHasEnded(grid)) {
+            if (Game.gameHasEnded(grid)) {
 
                 clearedAllTiles = checkIfAllTilesAreClear(grid);
 
@@ -65,9 +79,13 @@ public class HeadlessRunner {
            xSelection = checkXValue(grid, scanner);
            ySelection = checkYValue(grid, scanner);
 
-            Game.traverse(grid, gridSelection, ySelection, xSelection, grid[ySelection][xSelection].getColor());
-            int numberOfSelectedCells = Game.getNumberOfNonZeroCells(gridSelection);
-            if(numberOfSelectedCells > 1) {
+            Game.traverse(grid, gridSelection, ySelection, xSelection,
+                    grid[ySelection][xSelection].getColor());
+
+            int numberOfSelectedCells =
+                    Game.getNumberOfNonZeroCells(gridSelection);
+
+            if (numberOfSelectedCells > 1) {
                 score.addToScore(Score.calculateScore(numberOfSelectedCells));
                 Game.deleteSelectedCells(grid, gridSelection);
                 Game.moveDown(grid);
@@ -83,19 +101,18 @@ public class HeadlessRunner {
         }
     }
 
-    private static boolean checkIfAllTilesAreClear(Cell[][] grid) {
-        if(Game.getNumberOfNonZeroCells(grid) > 0) {
+    private static boolean checkIfAllTilesAreClear(final Cell[][] grid) {
+        if (Game.getNumberOfNonZeroCells(grid) > 0) {
             return false;
-        } else {
-            return true;
         }
+        return true;
     }
 
-    private static int checkXValue(Cell[][] grid, Scanner scanner) {
-        while(true) {
+    private static int checkXValue(final Cell[][] grid, final Scanner scanner) {
+        while (true) {
             System.out.println("Enter the x position of your selection: ");
             int xSelection = scanner.nextInt() - 1;
-            if(xSelection >= 0 && xSelection < grid[0].length) {
+            if (xSelection >= 0 && xSelection < grid[0].length) {
                 return xSelection;
             } else {
                 System.out.println("Incorrect value: " + (xSelection + 1));
@@ -103,11 +120,11 @@ public class HeadlessRunner {
         }
     }
 
-    private static int checkYValue(Cell[][] grid, Scanner scanner) {
-        while(true) {
+    private static int checkYValue(final Cell[][] grid, final Scanner scanner) {
+        while (true) {
             System.out.println("Enter the y position of your selection: ");
             int ySelection = scanner.nextInt() - 1;
-            if(ySelection >= 0 && ySelection < grid.length) {
+            if (ySelection >= 0 && ySelection < grid.length) {
                 return ySelection;
             } else {
                 System.out.println("Incorrect value: " + (ySelection + 1));
