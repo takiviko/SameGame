@@ -3,6 +3,7 @@ package result;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.jetbrains.annotations.NotNull;
+import org.tinylog.Logger;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,26 +17,26 @@ public class JsonHandler {
 
     public void write(Result result) {
 
-        Gson gson = new GsonBuilder().create();
+        Gson gson = new GsonBuilder().setPrettyPrinting().create();
         ArrayList<Result> results = new ArrayList<>();
 
         if(read() != null) {
             results = read();
+            Logger.trace("Read from file: \n" + results);
         }
 
         results.add(result);
-        String s = gson.toJson(results);
+        String stringToWrite = gson.toJson(results);
 
         ClassLoader classLoader = getClass().getClassLoader();
         URL url = classLoader.getResource("JSON/scores.json");
         try {
-            File f = new File(url.toURI());
-            Files.writeString(Paths.get(f.toString()), s);
+            File file = new File(url.toURI());
+            Files.writeString(Paths.get(file.toString()), stringToWrite);
+            Logger.trace("Wrote to file: " + stringToWrite);
         } catch (URISyntaxException | IOException e) {
             e.printStackTrace();
         }
-
-
     }
 
     public ArrayList read() {
@@ -51,7 +52,6 @@ public class JsonHandler {
         } catch (URISyntaxException | IOException e) {
             e.printStackTrace();
         }
-
         return results;
     }
 

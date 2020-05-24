@@ -30,6 +30,4 @@ public class Result {
      * Indicates whether the player has cleared all the tiles or not.
      */
     private boolean clearedAllTiles;
-
-
 }

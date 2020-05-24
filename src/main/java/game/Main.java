@@ -4,6 +4,7 @@ import result.JsonHandler;
 import result.Result;
 
 import java.security.InvalidParameterException;
+import org.tinylog.Logger;
 
 public class Main {
     public static void main(String[] args) {
@@ -16,10 +17,13 @@ public class Main {
         Result result = new Result();
 
         if(mode.equals("")) {
+            Logger.info("Running in GUI mode.");
             //TODO Run the gui
         } else if(mode.equals("-headless")) {
-                result = HeadlessRunner.run();
+            Logger.info("Running in headless mode.");
+            result = HeadlessRunner.run();
         } else {
+            Logger.error("Invalid parameter! In case you'd like to run the application in headless mode use the -headless flag.");
             throw new InvalidParameterException();
         }
         jsonHandler.write(result);

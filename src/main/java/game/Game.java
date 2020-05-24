@@ -1,6 +1,7 @@
 package game;
 
 import java.util.Random;
+import org.tinylog.Logger;
 
 public class Game {
 
@@ -17,6 +18,7 @@ public class Game {
         boolean gameHasEnded = true;
 
         if(getNumberOfNonZeroCells(array) == 0) {
+            Logger.info("There are no more coloured cells.");
             return true;
         }
 
@@ -31,6 +33,11 @@ public class Game {
                 }
             }
         }
+
+        if(gameHasEnded) {
+            Logger.info("There are no more possible moves.");
+        }
+
         return gameHasEnded;
     }
 
@@ -201,6 +208,7 @@ public class Game {
      */
     public static void randomizeGridValues(Cell[][] grid, int numberOfColors) {
         Random random = new Random();
+        Logger.info("Shuffling grid colours");
         for (int i = 0; i < grid.length; i++) {
             for (int j = 0; j < grid[0].length; j++) {
                 grid[i][j].setColor(random.nextInt(numberOfColors) + 1);

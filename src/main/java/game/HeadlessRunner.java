@@ -46,7 +46,6 @@ public class HeadlessRunner {
 
                 clearedAllTiles = checkIfAllTilesAreClear(grid);
 
-                System.out.println("There are no more possible moves.");
                 System.out.println("Your Score: " + score.getScore());
 
                 System.out.println("Enter your name: ");
