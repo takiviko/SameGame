@@ -1,9 +1,16 @@
 package game;
 
+import result.Result;
+
 import java.util.Scanner;
 
 public class HeadlessRunner {
-    public static void run() {
+    public static Result run() {
+
+        String playerName;
+        boolean clearedAllTiles;
+        int numberOfTilesCleared = 0;
+
         Scanner scanner = new Scanner(System.in);
         int width;
         int height;
@@ -36,9 +43,21 @@ public class HeadlessRunner {
         while(true) {
 
             if(Game.gameHasEnded(grid)) {
+
+                clearedAllTiles = checkIfAllTilesAreClear(grid);
+
                 System.out.println("There are no more possible moves.");
                 System.out.println("Your Score: " + score.getScore());
-                return;
+
+                System.out.println("Enter your name: ");
+                Scanner stringScanner = new Scanner(System.in);
+                playerName = stringScanner.nextLine();
+                return Result.builder()
+                        .playerName(playerName)
+                        .score(score.getScore())
+                        .clearedAllTiles(clearedAllTiles)
+                        .numberOfTilesCleared(numberOfTilesCleared)
+                        .build();
             }
 
            xSelection = checkXValue(grid, scanner);
@@ -53,11 +72,20 @@ public class HeadlessRunner {
                 Game.deleteEmptyColumns(grid);
                 System.out.println("Current score: " + score.getScore());
                 System.out.println("Here's your grid after the turn: ");
+                numberOfTilesCleared++;
             } else {
                 Game.emptyGrid(gridSelection);
                 System.out.println("Invalid selection!");
             }
             Game.printGridState(grid);
+        }
+    }
+
+    private static boolean checkIfAllTilesAreClear(Cell[][] grid) {
+        if(Game.getNumberOfNonZeroCells(grid) > 0) {
+            return false;
+        } else {
+            return true;
         }
     }
 
@@ -84,4 +112,5 @@ public class HeadlessRunner {
             }
         }
     }
+
 }

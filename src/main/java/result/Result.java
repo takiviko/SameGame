@@ -1,10 +1,14 @@
 package result;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Result {
 
     /**
@@ -26,4 +30,6 @@ public class Result {
      * Indicates whether the player has cleared all the tiles or not.
      */
     private boolean clearedAllTiles;
+
+
 }

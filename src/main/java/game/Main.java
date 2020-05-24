@@ -1,5 +1,8 @@
 package game;
 
+import result.JsonHandler;
+import result.Result;
+
 import java.security.InvalidParameterException;
 
 public class Main {
@@ -8,12 +11,17 @@ public class Main {
     }
 
     private static void run(String mode) {
+
+        JsonHandler jsonHandler = new JsonHandler();
+        Result result = new Result();
+
         if(mode.equals("")) {
-            //Run the gui
+            //TODO Run the gui
         } else if(mode.equals("-headless")) {
-                HeadlessRunner.run();
+                result = HeadlessRunner.run();
         } else {
             throw new InvalidParameterException();
         }
+        jsonHandler.write(result);
     }
 }
