@@ -1,5 +1,6 @@
 package game;
 
+import headless.HeadlessRunner;
 import result.JsonHandler;
 import result.Result;
 
@@ -21,7 +22,7 @@ public class Main {
             //TODO Run the gui
         } else if(mode.equals("-headless")) {
             Logger.info("Running in headless mode.");
-            result = HeadlessRunner.run();
+            result = headless.HeadlessRunner.run();
         } else {
             Logger.error("Invalid parameter! In case you'd like to run the application in headless mode use the -headless flag.");
             throw new InvalidParameterException();

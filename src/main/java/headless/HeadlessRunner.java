@@ -1,5 +1,8 @@
-package game;
+package headless;
 
+import game.Cell;
+import game.Game;
+import game.Score;
 import result.Result;
 
 import java.util.Scanner;
