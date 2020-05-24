@@ -4,13 +4,19 @@ import java.util.Random;
 
 public class Game {
 
+    /**
+     * Checks if there are possible moves to perform at a given state.
+     *
+     * @param array a state of the game represented by a {@code Cell[][]} two-dimensional matrix
+     * @return {@code true} if there are no possible moves left, {@code false} otherwise
+     */
     public static boolean gameHasEnded(Cell[][] array) {
         Cell[][] tempArray = new Cell[array.length][array[0].length];
-        gridInit(tempArray, array.length, array[0].length);
+        gridInit(tempArray);
 
         boolean gameHasEnded = true;
 
-        if(numberOfColoredCells(array) == 0) {
+        if(getNumberOfNonZeroCells(array) == 0) {
             return true;
         }
 
@@ -18,7 +24,7 @@ public class Game {
             for(int j = 0; j < array[0].length;j++) {
                 if(array[i][j].getColor() != 0) {
                     traverse(array, tempArray, i, j, array[i][j].getColor());
-                    if(numberOfColoredCells(tempArray) > 1) {
+                    if(getNumberOfNonZeroCells(tempArray) > 1) {
                         gameHasEnded = false;
                     }
                     emptyGrid(tempArray);
@@ -66,6 +72,11 @@ public class Game {
         }
     }
 
+    /**
+     * Moves all non-zero cells down that have one or more zeros below them until there are no more zeros below them.
+     *
+     * @param array a given state of the game
+     */
     public static void moveDown(Cell[][] array) {
         int zerosBelow;
         for(int i = array.length - 2; i >= 0; i--) {
@@ -84,7 +95,13 @@ public class Game {
         }
     }
 
-    public static int getNumberOfTraversedCells(Cell[][] array) {
+    /**
+     * Returns the number of non-zero cells in a given array.
+     *
+     * @param array the array in which the function finds the non-zero cells
+     * @return the number of non-zero cells in the array
+     */
+    public static int getNumberOfNonZeroCells(Cell[][] array) {
         int score = 0;
         for (int i = 0; i < array.length; i++) {
             for (int j = 0; j < array[0].length; j++) {
@@ -96,6 +113,12 @@ public class Game {
         return score;
     }
 
+    /**
+     * Moves cells to the left if there is at least one empty (full of zeros) column to their left.
+     *
+     * @param array the array to perform the action on
+     * @return the new game state with all the empty columns on the right side
+     */
     public static Cell[][] deleteEmptyColumns(Cell[][] array) {
         boolean columnIsEmpty;
         for(int k = 0; k < array[0].length; k++) {
@@ -114,7 +137,7 @@ public class Game {
         return array;
     }
 
-    public static Cell[][] moveLeft(Cell[][] array, int j) {
+    private static Cell[][] moveLeft(Cell[][] array, int j) {
         for(; j < array[0].length; j++) {
             for(int i = 0; i < array.length; i++) {
                 if(j < array.length-1) {
@@ -127,17 +150,28 @@ public class Game {
         return array;
     }
 
-    public static void deleteCells(Cell[][] array, Cell[][] result) {
+    /**
+     * Sets the values of the cells to zero on the game field if they match the selection.
+     *
+     * @param array the game field
+     * @param selection the selection
+     */
+    public static void deleteSelectedCells(Cell[][] array, Cell[][] selection) {
         for(int i = 0; i < array.length; i++) {
             for(int j = 0; j < array[0].length; j++) {
-                if(result[i][j].getColor() != 0) {
-                    array[i][j].setColor(array[i][j].getColor() - result[i][j].getColor());
+                if(selection[i][j].getColor() != 0) {
+                    array[i][j].setColor(array[i][j].getColor() - selection[i][j].getColor());
                 }
             }
         }
-        emptyGrid(result);
+        emptyGrid(selection);
     }
 
+    /**
+     * Sets all values of a game field to zero
+     *
+     * @param array the game field to empty
+     */
     public static void emptyGrid(Cell[][] array) {
         for(int i = 0; i<array.length; i++) {
             for(int j = 0; j<array[0].length; j++) {
@@ -146,23 +180,39 @@ public class Game {
         }
     }
 
-    public static void gridInit(Cell[][] grid, int width, int height) {
-        for(int i = 0; i<width; i++) {
-            for(int j = 0; j<height; j++) {
+    /**
+     * Initializes a {@code Cell[][]} array and sets the cell values to zero.
+     *
+     * @param grid the {@code Cell[][]} array to be initialized
+     */
+    public static void gridInit(Cell[][] grid) {
+        for(int i = 0; i<grid.length; i++) {
+            for(int j = 0; j<grid[0].length; j++) {
                 grid[i][j] = new Cell(0);
             }
         }
     }
 
-    public static void randomizeGridValues(int width, int height, Cell[][] grid, int numberOfColors) {
+    /**
+     * Randomizes all the values in a given {@code Cell[][]} array
+     *
+     * @param grid the array to be randomized
+     * @param numberOfColors the number of possible colours in the randomized array
+     */
+    public static void randomizeGridValues(Cell[][] grid, int numberOfColors) {
         Random random = new Random();
-        for (int i = 0; i < width; i++) {
-            for (int j = 0; j < height; j++) {
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
                 grid[i][j].setColor(random.nextInt(numberOfColors) + 1);
             }
         }
     }
 
+    /**
+     * Prints the values of the {@code Cell[][]} array to the console.
+     *
+     * @param grid the array to be printed
+     */
     public static void printGridState(Cell[][] grid) {
         for(int i = 0; i < grid.length; i++) {
             for(int j = 0; j < grid[0].length; j++) {
@@ -171,17 +221,5 @@ public class Game {
             System.out.println("");
         }
         System.out.println("");
-    }
-
-    private static int numberOfColoredCells(Cell[][] array) {
-        int number = 0;
-        for(int i = 0; i < array.length; i++) {
-            for(int j = 0; j < array[0].length; j++) {
-                if(array[i][j].getColor() != 0) {
-                    number++;
-                }
-            }
-        }
-        return number;
     }
 }

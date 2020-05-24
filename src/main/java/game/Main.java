@@ -16,6 +16,4 @@ public class Main {
             throw new InvalidParameterException();
         }
     }
-
-
 }

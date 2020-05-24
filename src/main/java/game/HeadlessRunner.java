@@ -27,9 +27,9 @@ public class HeadlessRunner {
 
         System.out.println("Now enter the number of colours you want in your grid: ");
         numberOfColors = scanner.nextInt();
-        Game.gridInit(grid, width, height);
-        Game.gridInit(gridSelection, width, height);
-        Game.randomizeGridValues(width, height, grid, numberOfColors);
+        Game.gridInit(grid);
+        Game.gridInit(gridSelection);
+        Game.randomizeGridValues(grid, numberOfColors);
         System.out.println("Brilliant!\nHere's your grid: ");
         Game.printGridState(grid);
 
@@ -45,10 +45,10 @@ public class HeadlessRunner {
            ySelection = checkYValue(grid, scanner);
 
             Game.traverse(grid, gridSelection, ySelection, xSelection, grid[ySelection][xSelection].getColor());
-            int numberOfSelectedCells = Game.getNumberOfTraversedCells(gridSelection);
+            int numberOfSelectedCells = Game.getNumberOfNonZeroCells(gridSelection);
             if(numberOfSelectedCells > 1) {
                 score.addToScore(Score.calculateScore(numberOfSelectedCells));
-                Game.deleteCells(grid, gridSelection);
+                Game.deleteSelectedCells(grid, gridSelection);
                 Game.moveDown(grid);
                 Game.deleteEmptyColumns(grid);
                 System.out.println("Current score: " + score.getScore());
