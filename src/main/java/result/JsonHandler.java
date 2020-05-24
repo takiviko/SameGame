@@ -2,15 +2,10 @@ package result;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import org.jetbrains.annotations.NotNull;
 import org.tinylog.Logger;
-
-import java.io.File;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class JsonHandler {
@@ -22,50 +17,50 @@ public class JsonHandler {
 
         if(read() != null) {
             results = read();
-            Logger.trace("Read from file: \n" + results);
         }
 
         results.add(result);
-        String stringToWrite = gson.toJson(results);
 
-        ClassLoader classLoader = getClass().getClassLoader();
-        URL url = classLoader.getResource("JSON/scores.json");
         try {
-            File file = new File(url.toURI());
-            Files.writeString(Paths.get(file.toString()), stringToWrite);
-            Logger.trace("Wrote to file: " + stringToWrite);
-        } catch (URISyntaxException | IOException e) {
+            FileWriter writer = new FileWriter("scores.json");
+            String s = gson.toJson(results);
+            writer.write(s);
+            writer.flush();
+            writer.close();
+            Logger.info("Successfully wrote the new score to scores.json");
+        } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
     public ArrayList read() {
 
-        ClassLoader classLoader = getClass().getClassLoader();
-        URL url = classLoader.getResource("JSON/scores.json");
-
         ArrayList<Result> results = new ArrayList<>();
 
         try {
-            File f = new File(url.toURI());
-            results = new Gson().fromJson(Files.readString(Paths.get(f.toString())), ArrayList.class);
-        } catch (URISyntaxException | IOException e) {
+            FileReader reader = new FileReader("scores.json");
+
+            try {
+                results = new Gson().fromJson(new FileReader("scores.json"), ArrayList.class);
+            } catch(Exception e) {
+                Logger.error("There was a problem with reading the file scores.json. Deleting contents...");
+                delete();
+            }
+
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return results;
     }
 
     public void delete() {
-        ClassLoader classLoader = getClass().getClassLoader();
-        URL url = classLoader.getResource("JSON/scores.json");
-
         try {
-            File f = new File(url.toURI());
-            Files.writeString(Paths.get(f.toString()), "");
-        } catch (URISyntaxException | IOException e) {
+            FileWriter writer = new FileWriter("scores.json");
+            writer.write("");
+            writer.flush();
+            writer.close();
+        } catch(IOException e) {
             e.printStackTrace();
         }
-
     }
-
 }
