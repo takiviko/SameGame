@@ -183,7 +183,9 @@ public final class Game {
         int j = column;
         for (; j < array[0].length; j++) {
             for (int i = 0; i < array.length; i++) {
-                if (j < array.length - 1) {
+                if (j < array[0].length - 1) {
+                    System.out.println("debug " + i + " " + j);
+
                     array[i][j].setColor(array[i][j + 1].getColor());
                 } else {
                     array[i][j].setColor(0);
@@ -270,5 +272,12 @@ public final class Game {
             System.out.println("");
         }
         System.out.println("");
+    }
+
+    public static boolean checkIfAllTilesAreClear(final Cell[][] grid) {
+        if (getNumberOfNonZeroCells(grid) > 0) {
+            return false;
+        }
+        return true;
     }
 }

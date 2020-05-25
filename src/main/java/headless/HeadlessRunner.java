@@ -28,9 +28,9 @@ public final class HeadlessRunner {
         int numberOfTilesCleared = 0;
 
         Scanner scanner = new Scanner(System.in);
-        int width;
-        int height;
-        int numberOfColors;
+        int height = 15;
+        int width = 10;
+        int numberOfColors = 3;
 
         int xSelection;
         int ySelection;
@@ -39,18 +39,8 @@ public final class HeadlessRunner {
 
         //---------------------------------------------------------//
 
-        System.out.println("Welcome!\nEnter the width of your grid: ");
-        width = scanner.nextInt();
-        System.out.println("Enter the height of your grid: ");
-        height = scanner.nextInt();
-
-
-        Cell[][] grid = new Cell[width][height];
-        Cell[][] gridSelection = new Cell[width][height];
-
-        System.out.println(
-            "Now enter the number of colours you want in your grid: ");
-        numberOfColors = scanner.nextInt();
+        Cell[][] grid = new Cell[height][width];
+        Cell[][] gridSelection = new Cell[height][width];
         Game.gridInit(grid);
         Game.gridInit(gridSelection);
         Game.randomizeGridValues(grid, numberOfColors);
@@ -61,7 +51,7 @@ public final class HeadlessRunner {
 
             if (Game.gameHasEnded(grid)) {
 
-                clearedAllTiles = checkIfAllTilesAreClear(grid);
+                clearedAllTiles = Game.checkIfAllTilesAreClear(grid);
 
                 System.out.println("Your Score: " + score.getScore());
 
@@ -72,12 +62,12 @@ public final class HeadlessRunner {
                         .playerName(playerName)
                         .score(score.getScore())
                         .clearedAllTiles(clearedAllTiles)
-                        .numberOfTilesCleared(numberOfTilesCleared)
+                        .moves(numberOfTilesCleared)
                         .build();
             }
 
-           xSelection = checkXValue(grid, scanner);
-           ySelection = checkYValue(grid, scanner);
+            xSelection = checkXValue(grid, scanner);
+            ySelection = checkYValue(grid, scanner);
 
             Game.traverse(grid, gridSelection, ySelection, xSelection,
                     grid[ySelection][xSelection].getColor());
@@ -99,13 +89,6 @@ public final class HeadlessRunner {
             }
             Game.printGridState(grid);
         }
-    }
-
-    private static boolean checkIfAllTilesAreClear(final Cell[][] grid) {
-        if (Game.getNumberOfNonZeroCells(grid) > 0) {
-            return false;
-        }
-        return true;
     }
 
     private static int checkXValue(final Cell[][] grid, final Scanner scanner) {

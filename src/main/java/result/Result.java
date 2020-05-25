@@ -27,7 +27,7 @@ public class Result {
     /**
      * The number of tiles cleared by the player.
      */
-    private int numberOfTilesCleared;
+    private int moves;
 
     /**
      * Indicates whether the player has cleared all the tiles or not.
