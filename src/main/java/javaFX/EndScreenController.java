@@ -13,7 +13,6 @@ import javafx.stage.Stage;
 import org.tinylog.Logger;
 import result.JsonHandler;
 import result.Result;
-
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -21,7 +20,7 @@ import java.util.ResourceBundle;
 /**
  * Handles button presses on the end scene.
  */
-public class EndScreenController {
+public class EndScreenController implements Initializable {
 
     @FXML
     Button okButton;
@@ -66,9 +65,8 @@ public class EndScreenController {
      * @throws IOException if and I/O problem occurs
      */
     public void onOKButtonClick(ActionEvent actionEvent) throws IOException {
-        Logger.debug(result);
         String name = textField.getCharacters().toString();
-        if (name.length() == 0) {
+        if (name.length() == 0 || name.length() >= 20) {
             displayLabel.setText("Please enter a value!");
             return;
         }
@@ -84,5 +82,10 @@ public class EndScreenController {
 
         stage.setScene(new Scene(root));
         stage.show();
+    }
+
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+        Logger.info("The game has ended.");
     }
 }

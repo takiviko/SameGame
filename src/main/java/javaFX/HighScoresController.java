@@ -74,7 +74,7 @@ public class HighScoresController implements Initializable {
         try {
             Result[] results = JsonHandler.readGsonArray();
             setTableItems(results);
-        } catch (Exception e) {
+        } catch (NullPointerException e) {
             tableView.getItems().clear();
             Logger.debug("No Items!");
         }

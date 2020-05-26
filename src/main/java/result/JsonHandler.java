@@ -9,7 +9,6 @@ import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * A class containing methods used to write to and read from
@@ -52,7 +51,7 @@ public class JsonHandler {
      *
      * @return an array containing the objects from the scores.json file
      */
-    public ArrayList read() {
+    private ArrayList read() {
         ArrayList<Result> results = new ArrayList<>();
         Gson gson = new GsonBuilder().create();
 
@@ -86,8 +85,6 @@ public class JsonHandler {
                 StandardCharsets.UTF_8)) {
 
             Result[] results = gson.fromJson(reader, Result[].class);
-
-            Arrays.stream(results).forEach(System.out::println);
 
             return results;
 

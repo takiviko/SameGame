@@ -9,7 +9,7 @@ import lombok.Data;
 @Data
 public class Cell {
 
-    Cell(final int passedColor) {
+    public Cell(final int passedColor) {
         this.color = passedColor;
     }
 

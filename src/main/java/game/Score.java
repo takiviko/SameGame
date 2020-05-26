@@ -21,6 +21,15 @@ public class Score {
     }
 
     /**
+     * Sets the initial score to the passer number.
+     *
+     * @param n the number to set the score to
+     */
+    public Score(int n) {
+        this.score = n;
+    }
+
+    /**
      * Adds the passed number to the score.
      *
      * @param n the number to be added to the score

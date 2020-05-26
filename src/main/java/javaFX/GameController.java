@@ -16,7 +16,6 @@ import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 import org.tinylog.Logger;
 import result.Result;
-
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
@@ -176,6 +175,5 @@ public class GameController implements Initializable {
             }
         }
     }
-
 
 }

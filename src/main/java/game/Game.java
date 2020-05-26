@@ -6,7 +6,6 @@ import org.tinylog.Logger;
 /**
  * Class holding the necessary methods for the game.
  */
-
 public final class Game {
 
     private Game() {
