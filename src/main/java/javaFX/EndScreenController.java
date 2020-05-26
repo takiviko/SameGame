@@ -25,10 +25,15 @@ public class EndScreenController {
 
     @FXML
     Button okButton;
+
     @FXML
     Label resultLabel;
+
     @FXML
     TextField textField;
+
+    @FXML
+    Label displayLabel;
 
     Result result = new Result();
 
@@ -63,6 +68,10 @@ public class EndScreenController {
     public void onOKButtonClick(ActionEvent actionEvent) throws IOException {
         Logger.debug(result);
         String name = textField.getCharacters().toString();
+        if (name.length() == 0) {
+            displayLabel.setText("Please enter a value!");
+            return;
+        }
         result.setPlayerName(name);
 
         JsonHandler jsonHandler = new JsonHandler();

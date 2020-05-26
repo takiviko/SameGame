@@ -22,7 +22,7 @@
         </rowConstraints>
          <children>
             <TextField fx:id="textField" maxWidth="200.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="TOP" />
-            <Label text="Enter your name:" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
+            <Label fx:id="displayLabel" text="Enter your name:" GridPane.halignment="CENTER" GridPane.valignment="CENTER">
                <font>
                   <Font name="SansSerif Regular" size="32.0" />
                </font>
