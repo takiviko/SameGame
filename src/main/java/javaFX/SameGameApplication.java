@@ -14,7 +14,7 @@ public class SameGameApplication  extends Application{
         Logger.info("Starting application...");
 
         FXMLLoader fxmlLoader = new FXMLLoader();
-        fxmlLoader.setLocation(getClass().getResource("/JavaFX/menu.fxml"));
+        fxmlLoader.setLocation(getClass().getResource("/GUIResources/menu.fxml"));
         Parent root = fxmlLoader.load();
 
         primaryStage.setTitle("SameGame");

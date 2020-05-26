@@ -47,12 +47,11 @@ public class HighScoresController implements Initializable {
     public void onBackButtonClicked(ActionEvent actionEvent) throws Exception {
         Stage stage = (Stage)backButton.getScene().getWindow();
         Logger.info("Switching to menu scene");
-        Parent root = FXMLLoader.load(getClass().getResource("/JavaFX/menu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/GUIResources/menu.fxml"));
 
         stage.setScene(new Scene(root));
         stage.show();
     }
-
 
     @SneakyThrows
     @Override

@@ -26,7 +26,7 @@ public class MenuController {
     public void onHighScoreButtonClicked(ActionEvent actionEvent) throws Exception {
         Stage stage = (Stage)highScoreButton.getScene().getWindow();
         Logger.info("Switching to high scores scene");
-        Parent root = FXMLLoader.load(getClass().getResource("/JavaFX/highScores.fxml"));
+        Parent root = FXMLLoader.load(this.getClass().getResource("/GUIResources/highScores.fxml"));
 
         stage.setScene(new Scene(root));
         stage.show();
@@ -36,7 +36,7 @@ public class MenuController {
     public void onStartButtonClicked(ActionEvent actionEvent) throws Exception {
         Stage stage = (Stage)startButton.getScene().getWindow();
         Logger.info("Starting game...");
-        Parent root = FXMLLoader.load(getClass().getResource("/JavaFX/game.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/GUIResources/game.fxml"));
 
         stage.setScene(new Scene(root));
         stage.show();

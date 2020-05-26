@@ -44,7 +44,7 @@ public class GameController implements Initializable {
     public void onBackButtonClicked(ActionEvent actionEvent) throws Exception {
         Stage stage = (Stage)backButton.getScene().getWindow();
         Logger.info("Going back to menu...");
-        Parent root = FXMLLoader.load(getClass().getResource("/JavaFX/menu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/GUIResources/menu.fxml"));
 
         stage.setScene(new Scene(root));
         stage.show();
@@ -89,7 +89,7 @@ public class GameController implements Initializable {
 
             Stage stage = (Stage)gridPane.getScene().getWindow();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/JavaFX/endScreen.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUIResources/endScreen.fxml"));
 
             Parent root = loader.load();
 
