@@ -272,6 +272,14 @@ public final class Game {
         System.out.println("");
     }
 
+    /**
+     * Returns {@code true} if all tiles are empty in the passed {@code Cell[][]} object,
+     * {@code false otherwise}.
+     *
+     * @param grid The {@code Cell[][]} object to be checked
+     * @return {@code true} if all tiles are empty in the passed {@code Cell[][]} object,
+     *      {@code false} otherwise
+     */
     public static boolean checkIfAllTilesAreClear(final Cell[][] grid) {
         if (getNumberOfNonZeroCells(grid) > 0) {
             return false;

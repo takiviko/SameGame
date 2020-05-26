@@ -21,6 +21,9 @@ import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
 
+/**
+ * Handles button presses on the game scene.
+ */
 public class GameController implements Initializable {
 
     @FXML
@@ -41,6 +44,12 @@ public class GameController implements Initializable {
 
     int xSelection, ySelection;
 
+    /**
+     * When the player presses the back button it switches to the menu scene.
+     *
+     * @param actionEvent the event in which the button press occurs
+     * @throws Exception if any I/O problem occurs
+     */
     public void onBackButtonClicked(ActionEvent actionEvent) throws Exception {
         Stage stage = (Stage)backButton.getScene().getWindow();
         Logger.info("Going back to menu...");
@@ -50,6 +59,13 @@ public class GameController implements Initializable {
         stage.show();
     }
 
+    /**
+     * When a cell is clicked on this runs the game logic with the selected cell
+     * then refreshes the screen according to the changes.
+     *
+     * @param actionEvent the event in which the button press occurs
+     * @throws Exception if any I/O problem occurs
+     */
     public void onCellPress(ActionEvent actionEvent) throws Exception {
 
         xSelection = GridPane.getRowIndex((Node)actionEvent.getSource());
@@ -103,6 +119,12 @@ public class GameController implements Initializable {
 
     }
 
+    /**
+     * Initializes the game field on startup.
+     *
+     * @param url the path of the root object
+     * @param resourceBundle resources to initialize the root object with
+     */
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         Game.gridInit(grid);

@@ -18,7 +18,10 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class EndScreenController implements Initializable {
+/**
+ * Handles button presses on the end scene.
+ */
+public class EndScreenController {
 
     @FXML
     Button okButton;
@@ -29,23 +32,34 @@ public class EndScreenController implements Initializable {
 
     Result result = new Result();
 
+    /**
+     * Gets a {@code Result} objects and initializes the local {@code Result} variable with it.
+     *
+     * @param result the passed {@code Result} object
+     */
     public void setResult(Result result) {
         this.result = result;
-        Logger.debug(result);
     }
 
-    @Override
-    public void initialize(URL url, ResourceBundle resourceBundle) {
-
-    }
-
+    /**
+     * When the player presses the "Get Result" button
+     * it writes the results to the screen in a formatted manner.
+     *
+     * @param actionEvent the event in which the button press occurs
+     */
     public void onResultButtonClick(ActionEvent actionEvent) {
         setResult(result);
-
         resultLabel.setText(result.toFormattedStringWithoutName());
-
     }
 
+    /**
+     * When the player presses the OK button
+     * the method writes the results into the scores.json file
+     * and switches the scene back to the menu.
+     *
+     * @param actionEvent the event in which the button press occurs
+     * @throws IOException if and I/O problem occurs
+     */
     public void onOKButtonClick(ActionEvent actionEvent) throws IOException {
         Logger.debug(result);
         String name = textField.getCharacters().toString();

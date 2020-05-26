@@ -21,6 +21,9 @@ import java.net.URL;
 import java.util.Collections;
 import java.util.ResourceBundle;
 
+/**
+ * The controller class for the high scores screen.
+ */
 public class HighScoresController implements Initializable {
 
     @FXML
@@ -44,6 +47,12 @@ public class HighScoresController implements Initializable {
     @FXML
     Button deleteButton;
 
+    /**
+     * When the back button gets clicked the method switches the scene to the main menu.
+     *
+     * @param actionEvent the event in which the button press occurs
+     * @throws Exception if any I/O problem occurs
+     */
     public void onBackButtonClicked(ActionEvent actionEvent) throws Exception {
         Stage stage = (Stage)backButton.getScene().getWindow();
         Logger.info("Switching to menu scene");
@@ -53,6 +62,12 @@ public class HighScoresController implements Initializable {
         stage.show();
     }
 
+    /**
+     * Initializes the high scores table on startup.
+     *
+     * @param url the path of the root object
+     * @param resourceBundle resources to initialize the root object with
+     */
     @SneakyThrows
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -65,6 +80,12 @@ public class HighScoresController implements Initializable {
         }
     }
 
+    /**
+     * When the delete button gets clicked the method deletes the contents of the
+     * scores.json file and clears the display table.
+     *
+     * @param actionEvent the event in which the button press occurs
+     */
     public void onDeleteButtonClicked(ActionEvent actionEvent) {
         JsonHandler jsonHandler = new JsonHandler();
         jsonHandler.delete();

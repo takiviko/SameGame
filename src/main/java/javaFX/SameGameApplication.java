@@ -7,6 +7,9 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import org.tinylog.Logger;
 
+/**
+ * Loads the main scene of the application.
+ */
 public class SameGameApplication  extends Application{
 
     @Override

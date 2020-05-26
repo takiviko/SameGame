@@ -10,7 +10,6 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.List;
 
 /**
  * A class containing methods used to write to and read from
@@ -69,25 +68,31 @@ public class JsonHandler {
         return results;
     }
 
+    /**
+     * Reads the scores.json file into a {@code Result[]} array.
+     *
+     * @return a {@code Result[]} array containing objects described by
+     *      the scores.json file
+     * @throws IOException if an I/O problem occurs
+     */
+    public static Result[] readGsonArray() throws IOException {
 
-        public static Result[] readGsonArray() throws IOException {
+        Gson gson = new GsonBuilder().create();
 
-            Gson gson = new GsonBuilder().create();
+        String fileName = "scores.json";
+        Path path = new File(fileName).toPath();
 
-            String fileName = "scores.json";
-            Path path = new File(fileName).toPath();
+        try (Reader reader = Files.newBufferedReader(path,
+                StandardCharsets.UTF_8)) {
 
-            try (Reader reader = Files.newBufferedReader(path,
-                    StandardCharsets.UTF_8)) {
+            Result[] results = gson.fromJson(reader, Result[].class);
 
-                Result[] results = gson.fromJson(reader, Result[].class);
+            Arrays.stream(results).forEach(System.out::println);
 
-                Arrays.stream(results).forEach(System.out::println);
+            return results;
 
-                return results;
-
-            }
         }
+    }
 
     /**
      * Empties the scores.json file.

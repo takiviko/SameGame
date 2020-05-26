@@ -34,15 +34,14 @@ public class Result implements Comparator<Result> {
      */
     private String clearedAllTiles;
 
-    public String toFormattedString() {
-        return "Name: " + playerName + "\nScore: " + score + "\nMoves: " + moves + "\nCleared all tiles: " + clearedAllTiles;
-    }
-
+    /**
+     * Returns a formatted string separated by newline characters and without the name field.
+     *
+     * @return a formatted string separated by newline characters and without the name field
+     */
     public String toFormattedStringWithoutName() {
         return "Score: " + score + "\nMoves: " + moves + "\nCleared all tiles: " + clearedAllTiles;
     }
-
-
 
     @Override
     public int compare(Result o1, Result o2) {
