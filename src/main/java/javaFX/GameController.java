@@ -20,7 +20,6 @@ import result.Result;
 import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
-import java.util.Scanner;
 
 public class GameController implements Initializable {
 
@@ -45,7 +44,7 @@ public class GameController implements Initializable {
     public void onBackButtonClicked(ActionEvent actionEvent) throws Exception {
         Stage stage = (Stage)backButton.getScene().getWindow();
         Logger.info("Going back to menu...");
-        Parent root = FXMLLoader.load(getClass().getResource("/GUI/menu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/JavaFX/menu.fxml"));
 
         stage.setScene(new Scene(root));
         stage.show();
@@ -79,18 +78,18 @@ public class GameController implements Initializable {
         if (Game.gameHasEnded(grid)) {
 
             boolean clearedAllTiles = Game.checkIfAllTilesAreClear(grid);
-            String playerName = "V1";
+            String playerName = "";
 
             Result result = Result.builder()
                     .playerName(playerName)
                     .score(score.getScore())
-                    .clearedAllTiles(clearedAllTiles)
+                    .clearedAllTiles(Boolean.toString(clearedAllTiles))
                     .moves(numberOfTilesCleared)
                     .build();
 
             Stage stage = (Stage)gridPane.getScene().getWindow();
 
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/endScreen.fxml"));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/JavaFX/endScreen.fxml"));
 
             Parent root = loader.load();
 

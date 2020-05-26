@@ -184,8 +184,6 @@ public final class Game {
         for (; j < array[0].length; j++) {
             for (int i = 0; i < array.length; i++) {
                 if (j < array[0].length - 1) {
-                    System.out.println("debug " + i + " " + j);
-
                     array[i][j].setColor(array[i][j + 1].getColor());
                 } else {
                     array[i][j].setColor(0);

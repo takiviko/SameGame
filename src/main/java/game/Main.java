@@ -35,7 +35,7 @@ public final class Main {
         if (mode.length == 0) {
 
             Logger.info("Running in GUI mode.");
-            Application.launch(SameGameApplication.class);
+            Application.launch(javaFX.SameGameApplication.class);
 
             if (result.getMoves() > 0) {
                 jsonHandler.write(result);

@@ -36,12 +36,14 @@ public class EndScreenController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
+
+    public void onResultButtonClick(ActionEvent actionEvent) {
         setResult(result);
 
-        resultLabel.setText(
-                "Score: " + result.getScore()
-                + "\nMoves: " + result.getMoves()
-        );
+        resultLabel.setText(result.toFormattedStringWithoutName());
+
     }
 
     public void onOKButtonClick(ActionEvent actionEvent) throws IOException {
@@ -55,7 +57,7 @@ public class EndScreenController implements Initializable {
 
         Stage stage = (Stage)okButton.getScene().getWindow();
         Logger.info("Switching to menu scene");
-        Parent root = FXMLLoader.load(getClass().getResource("/GUI/menu.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/JavaFX/menu.fxml"));
 
         stage.setScene(new Scene(root));
         stage.show();

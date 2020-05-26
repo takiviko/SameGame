@@ -61,7 +61,7 @@ public final class HeadlessRunner {
                 return Result.builder()
                         .playerName(playerName)
                         .score(score.getScore())
-                        .clearedAllTiles(clearedAllTiles)
+                        .clearedAllTiles(Boolean.toString(clearedAllTiles))
                         .moves(numberOfTilesCleared)
                         .build();
             }

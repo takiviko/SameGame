@@ -3,10 +3,14 @@ package result;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import org.tinylog.Logger;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
+
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 /**
  * A class containing methods used to write to and read from
@@ -50,27 +54,40 @@ public class JsonHandler {
      * @return an array containing the objects from the scores.json file
      */
     public ArrayList read() {
-
         ArrayList<Result> results = new ArrayList<>();
+        Gson gson = new GsonBuilder().create();
 
         try {
-            FileReader reader = new FileReader("scores.json");
-
-            try {
-                results = new Gson().fromJson(
-                        new FileReader("scores.json"),
-                        ArrayList.class);
-            } catch (Exception e) {
-                Logger.error("There was a problem with reading the "
-                        + "file scores.json. Deleting contents...");
-                delete();
-            }
-
-        } catch (IOException e) {
-            e.printStackTrace();
+            results = gson.fromJson(
+                    new FileReader("scores.json"),
+                    ArrayList.class);
+        } catch (Exception e) {
+            Logger.error("There was a problem with reading the "
+                    + "file scores.json. Deleting contents...");
+            delete();
         }
         return results;
     }
+
+
+        public static Result[] readGsonArray() throws IOException {
+
+            Gson gson = new GsonBuilder().create();
+
+            String fileName = "scores.json";
+            Path path = new File(fileName).toPath();
+
+            try (Reader reader = Files.newBufferedReader(path,
+                    StandardCharsets.UTF_8)) {
+
+                Result[] results = gson.fromJson(reader, Result[].class);
+
+                Arrays.stream(results).forEach(System.out::println);
+
+                return results;
+
+            }
+        }
 
     /**
      * Empties the scores.json file.
