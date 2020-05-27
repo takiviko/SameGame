@@ -9,7 +9,7 @@ Java implementation of the game SameGame
 ## How to run the game?
 ~~~
 mvn package
-java -jar target/SameGame-1.0-launcher.jar
+java -jar target/SameGame-1.0-shaded.jar
 ~~~
 ## Getting the JavaDoc documentation
 ~~~
