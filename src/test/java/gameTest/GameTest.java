@@ -35,7 +35,13 @@ public class GameTest {
         for (int i = 0; i < grid[0].length; i++) {
             grid[0][i].setColor(1);
         }
-        Game.printGridState(grid);
+    }
+
+    private void gridWithEmptyColumnInit(Cell[][] grid) {
+        Game.gridInit(grid);
+        for (int i = 0; i < grid.length; i++) {
+            grid[i] [grid.length - 1].setColor(1);
+        }
     }
 
     @Test
@@ -48,7 +54,7 @@ public class GameTest {
     public void redGridTest() {
         for(int i = 0; i < 100; i++) {
             randomGridInit(grid);
-            Logger.debug(grid[0][0].getColor());
+            Logger.trace(grid[0][0].getColor());
             assertTrue(grid[0][0].getColor() == 1 || grid[0][0].getColor() == 2 || grid[0][0].getColor() == 3);
         }
     }
@@ -81,7 +87,7 @@ public class GameTest {
     }
 
     @Test
-    public void moveLeftTest() {
+    public void moveDownTest() {
         gridWithEmptyRowInit(grid);
         Game.moveDown(grid);
         for (int i = 0; i < grid.length; i++) {
@@ -95,13 +101,19 @@ public class GameTest {
         }
     }
 
-
-}
-
-/*
-for (int i = 0; i < grid[0].length; i++) {
-            for (int j = 0; j < grid.length; j++) {
-
+    @Test
+    public void deleteEmptyColumnsTest() {
+        gridWithEmptyColumnInit(grid);
+        Game.deleteEmptyColumns(grid);
+        for (int i = 0; i < grid.length; i++) {
+            for (int j = 0; j < grid[0].length; j++) {
+                Logger.debug(i + " " + j + " " + grid[i][j].getColor());
+                if (j == 0) {
+                    assertEquals(1, grid[i][j].getColor());
+                } else {
+                    assertEquals(0, grid[i][j].getColor());
+                }
             }
         }
- */
+    }
+}
