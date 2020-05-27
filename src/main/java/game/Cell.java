@@ -9,6 +9,11 @@ import lombok.Data;
 @Data
 public class Cell {
 
+    /**
+     * Sets the default value of the cell's colour to the passed number.
+     *
+     * @param passedColor the number to set the colour of the cell to
+     */
     public Cell(final int passedColor) {
         this.color = passedColor;
     }
